@@ -10,7 +10,7 @@ export const ExperienceSection = () => {
         <ExperienceItem
           title="React Developer"
           company="GSD - Samplefest"
-          date="Present"
+          date="August 2023 - Present"
           responsibilities={[
             "Implemented redesign of the APP following new design specifications",
             "Refactored authentication system, profile page and other components",
@@ -22,7 +22,7 @@ export const ExperienceSection = () => {
         <ExperienceItem
           title="React Developer / Node Developer"
           company="Live Engage"
-          date="June 2022 - Present"
+          date="June 2022 - August 2023"
           responsibilities={[
             "Developed React-based communication widget, increasing user engagement by 30%",
             "Created Node.js administrative panel, optimizing management processes by 50%",
