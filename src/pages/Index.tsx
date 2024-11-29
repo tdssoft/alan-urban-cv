@@ -28,7 +28,6 @@ const Index = () => {
         <div className="grid md:grid-cols-[2fr,1fr] gap-8">
           {/* Left column - Main content */}
           <div className="space-y-8">
-            {/* Experience Summary */}
             <section>
               <h2 className="text-2xl font-semibold text-primary mb-4">EXPERIENCE SUMMARY</h2>
               <ul className="list-disc pl-5 space-y-2 text-gray-700">
@@ -88,7 +87,7 @@ const Index = () => {
             </section>
           </div>
 
-          {/* Right column - Skills and Achievements */}
+          {/* Right column - Skills, Education, and Languages */}
           <div className="space-y-8">
             {/* Key Technical Skills */}
             <section>
@@ -110,16 +109,42 @@ const Index = () => {
               </ul>
             </section>
 
-            {/* Key Achievements */}
+            {/* Soft Skills */}
             <section>
-              <h2 className="text-2xl font-semibold text-primary mb-4">KEY ACHIEVEMENTS</h2>
+              <h2 className="text-2xl font-semibold text-primary mb-4">SOFT SKILLS</h2>
               <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                <li>Increased user engagement by 30% (communication widget)</li>
-                <li>Optimized management processes by 50% (administrative panel)</li>
-                <li>Improved data visibility by 40% (customer dashboard)</li>
-                <li>Mentoring for 25+ students in front-end technologies</li>
-                <li>Increased e-commerce conversion by 25%</li>
-                <li>Reduced React application loading time by 40%</li>
+                <li>Team management and leadership</li>
+                <li>Collaboration with international project teams</li>
+                <li>Independently serving as the frontend developer in project teams</li>
+                <li>Collaboration within interdisciplinary teams</li>
+                <li>Experience working with startups</li>
+                <li>Direct collaboration with the client</li>
+              </ul>
+            </section>
+
+            {/* Education */}
+            <section>
+              <h2 className="text-2xl font-semibold text-primary mb-4">EDUCATION</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold">IT Technology, Master's studies</h3>
+                  <p className="text-gray-700">2016-02 - 2017-06</p>
+                  <p className="text-gray-700">University of Rzeszow, Rzeszow</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold">Computer Science, Engineering studies</h3>
+                  <p className="text-gray-700">2012-10 - 2016-02</p>
+                  <p className="text-gray-700">University of Rzeszow, Rzeszow</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Languages */}
+            <section>
+              <h2 className="text-2xl font-semibold text-primary mb-4">LANGUAGES</h2>
+              <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                <li>Polish (native)</li>
+                <li>English (fluent)</li>
               </ul>
             </section>
           </div>
