@@ -8,7 +8,7 @@ const Index = () => {
         {/* Header */}
         <header className="space-y-4 mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-primary">Alan Urban</h1>
-          <h2 className="text-xl text-gray-700">React / Node Developer</h2>
+          <h2 className="text-xl text-gray-700">Fullstack Developer</h2>
           <div className="flex flex-col md:flex-row gap-3 text-gray-600">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
@@ -32,22 +32,25 @@ const Index = () => {
             <section>
               <h2 className="text-2xl font-semibold text-primary mb-4">EXPERIENCE SUMMARY</h2>
               <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                <li>Total experience: 9 years and 2 months</li>
-                <li>React: 5 years and 6 months</li>
-                <li>Node: 3 years and 6 months</li>
-                <li>Angular: 4 year and 6 months</li>
-                <li>Frontend: 7 years and 8 months</li>
-                <li>Fullstack: 5 years and 10 months</li>
+                <li>Total experience: 10 years and 2 months</li>
+                <li>React: 7 years and 3 months</li>
+                <li>React Native: 5 years</li>
+                <li>Node: 5 years</li>
+                <li>.NET: 1 year</li>
+                <li>Angular: 1 year and 6 months</li>
+                <li>Frontend: 6 years and 2 months</li>
+                <li>Fullstack: 7 years and 6 months</li>
               </ul>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold text-primary mb-4">SUMMARY</h2>
               <p className="text-gray-700 leading-relaxed">
-                Experienced React and Node developer with a wide range of skills in front-end, back-end, and full-stack development. 
+                Experienced React, React Native and Node developer with a wide range of skills in front-end, back-end, and full-stack development. 
                 Specializing in building responsive web applications, performance optimization, and collaboration in international teams. 
+                Proficient in containerization with Docker and cloud deployment on Azure and AWS platforms. 
                 Founder of an educational platform, mentor with a passion for sharing knowledge in web application development. 
-                My career path includes progression from intern to senior full-stack developer over 9 years, with experience in diverse 
+                My career path includes progression from intern to senior full-stack developer over 10 years, with experience in diverse 
                 projects and work environments.
               </p>
             </section>
@@ -62,9 +65,10 @@ const Index = () => {
               <ul className="list-disc pl-5 space-y-2 text-gray-700">
                 <li>Front-end: React, JavaScript (ES6+), TypeScript, HTML5, CSS3/SCSS/SASS, Styled Components</li>
                 <li>Mobile: React Native</li>
-                <li>Back-end: Node.js, Express.js</li>
+                <li>Back-end: Node.js, Express.js, .NET</li>
                 <li>Fullstack: Experience in developing complex applications</li>
-                <li>Cloud: Azure</li>
+                <li>Cloud: Azure, AWS</li>
+                <li>Containerization: Docker</li>
                 <li>Databases: MongoDB, PostgreSQL</li>
                 <li>API: REST, GraphQL</li>
                 <li>State Management: Redux</li>

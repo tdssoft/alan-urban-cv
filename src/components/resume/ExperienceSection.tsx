@@ -5,30 +5,31 @@ export const ExperienceSection = () => {
   return (
     <section>
       <h2 className="text-2xl font-semibold text-primary mb-6">PROFESSIONAL EXPERIENCE</h2>
-      
+
       <div className="space-y-6">
         <ExperienceItem
-          title="React Developer"
-          company="GSD - Samplefest"
-          date="August 2023 - Present"
-          responsibilities={[
-            "Implemented redesign of the APP following new design specifications",
-            "Refactored authentication system, profile page and other components",
-            "Developed layouts from Figma designs",
-            "Utilized React, Prisma, TypeScript, StyledComponents, and GraphQL"
-          ]}
-        />
-
-        <ExperienceItem
-          title="React Developer / Node Developer"
+          title="Fullstack Developer"
           company="Live Engage"
-          date="June 2022 - August 2023"
+          date="June 2022 - Now"
           responsibilities={[
             "Developed React-based communication widget, increasing user engagement by 30%",
             "Created Node.js administrative panel, optimizing management processes by 50%",
             "Built RESTful API using Express.js for customer dashboard, improving data visibility by 40%",
             "Implemented responsive design principles and ensured cross-browser compatibility",
-            "Utilized Git for version control and participated in Agile development processes"
+            "Utilized Git for version control and participated in Agile development processes",
+            "Deployed applications using Docker containers and Azure cloud infrastructure"
+          ]}
+        />
+
+        <ExperienceItem
+          title="Fullstack Developer"
+          company="Sii"
+          date="June 2022 - Apri 2024"
+          responsibilities={[
+            "Developed patient management application and treatment scheduling system for neurosurgery specialists using React, TypeScript, and Next.js, enhancing operational efficiency and patient care by 40%",
+            "Created progressive web applications and mobile applications, improving accessibility and user engagement by 30%",
+            "Worked on GraphQL integration, optimizing data fetching and reducing load times by 25%",
+            "Implemented containerization using Docker and deployed applications on AWS infrastructure"
           ]}
         />
 
@@ -97,7 +98,7 @@ export const ExperienceSection = () => {
             <li>
               <strong>Full Stack Developer at TDS SOFT ALAN URBAN (August 2016 - June 2017)</strong>
               <ul className="list-disc pl-5 mt-2">
-                <li>Developed custom web applications for clients using JavaScript and PHP</li>
+                <li>Developed custom web applications for clients using JavaScript and PHP, .NET</li>
                 <li>Managed project timelines and client communications</li>
               </ul>
             </li>
