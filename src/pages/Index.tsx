@@ -67,7 +67,7 @@ const Index = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="bg-yellow-500 text-white px-2 py-1 rounded text-sm font-medium">Python</span>
-                      <span className="text-gray-700 font-medium">2y</span>
+                      <span className="text-gray-700 font-medium">3y</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="bg-indigo-500 text-white px-2 py-1 rounded text-sm font-medium">.NET</span>
