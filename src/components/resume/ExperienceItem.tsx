@@ -5,13 +5,15 @@ interface ExperienceItemProps {
   company: string;
   date: string;
   responsibilities: string[];
+  technologies?: string[];
 }
 
 export const ExperienceItem: React.FC<ExperienceItemProps> = ({
   title,
   company,
   date,
-  responsibilities
+  responsibilities,
+  technologies
 }) => {
   return (
     <div>
@@ -25,6 +27,21 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({
           <li key={index}>{responsibility}</li>
         ))}
       </ul>
+      {technologies && technologies.length > 0 && (
+        <div className="mt-3">
+          <p className="text-sm font-semibold text-gray-600 mb-2">Technologies:</p>
+          <div className="flex flex-wrap gap-2">
+            {technologies.map((tech, index) => (
+              <span 
+                key={index} 
+                className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

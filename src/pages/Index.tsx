@@ -30,17 +30,61 @@ const Index = () => {
           {/* Left column - Main content */}
           <div className="space-y-8">
             <section>
-              <h2 className="text-2xl font-semibold text-primary mb-4">EXPERIENCE SUMMARY</h2>
-              <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                <li>Total experience: 10 years and 2 months</li>
-                <li>React: 7 years and 3 months</li>
-                <li>React Native: 5 years</li>
-                <li>Node: 5 years</li>
-                <li>.NET: 1 year</li>
-                <li>Angular: 1 year and 6 months</li>
-                <li>Frontend: 6 years and 2 months</li>
-                <li>Fullstack: 7 years and 6 months</li>
-              </ul>
+              <h2 className="text-2xl font-semibold text-primary mb-6">EXPERIENCE SUMMARY</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
+                  <h3 className="text-lg font-semibold text-blue-800 mb-3">Core Technologies</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="bg-blue-500 text-white px-2 py-1 rounded text-sm font-medium">React</span>
+                      <span className="text-gray-700 font-medium">7y 3m</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-blue-500 text-white px-2 py-1 rounded text-sm font-medium">Angular</span>
+                      <span className="text-gray-700 font-medium">6y</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-green-500 text-white px-2 py-1 rounded text-sm font-medium">Node.js</span>
+                      <span className="text-gray-700 font-medium">5y</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-purple-500 text-white px-2 py-1 rounded text-sm font-medium">React Native</span>
+                      <span className="text-gray-700 font-medium">5y</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-100">
+                  <h3 className="text-lg font-semibold text-green-800 mb-3">Development Areas</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="bg-emerald-500 text-white px-2 py-1 rounded text-sm font-medium">Fullstack</span>
+                      <span className="text-gray-700 font-medium">7y 6m</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-emerald-500 text-white px-2 py-1 rounded text-sm font-medium">Frontend</span>
+                      <span className="text-gray-700 font-medium">6y 2m</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-yellow-500 text-white px-2 py-1 rounded text-sm font-medium">Python</span>
+                      <span className="text-gray-700 font-medium">2y</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-indigo-500 text-white px-2 py-1 rounded text-sm font-medium">.NET</span>
+                      <span className="text-gray-700 font-medium">1y</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100">
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold text-purple-800">10+ Years</h3>
+                    <p className="text-purple-600 font-medium">Total Experience</p>
+                  </div>
+                </div>
+              </div>
             </section>
 
             <section>
@@ -48,7 +92,8 @@ const Index = () => {
               <p className="text-gray-700 leading-relaxed">
                 Experienced React, React Native and Node developer with a wide range of skills in front-end, back-end, and full-stack development. 
                 Specializing in building responsive web applications, performance optimization, and collaboration in international teams. 
-                Proficient in containerization with Docker and cloud deployment on Azure and AWS platforms. 
+                Proficient in AI-powered chat systems using Facebook LLaMA and RAG technology for behavioral analysis and personalized recommendations. 
+                Expert in containerization with Docker and cloud deployment on Azure and AWS platforms. 
                 Founder of an educational platform, mentor with a passion for sharing knowledge in web application development. 
                 My career path includes progression from intern to senior full-stack developer over 10 years, with experience in diverse 
                 projects and work environments.
@@ -65,7 +110,8 @@ const Index = () => {
               <ul className="list-disc pl-5 space-y-2 text-gray-700">
                 <li>Front-end: React, JavaScript (ES6+), TypeScript, HTML5, CSS3/SCSS/SASS, Styled Components</li>
                 <li>Mobile: React Native</li>
-                <li>Back-end: Node.js, Express.js, .NET</li>
+                <li>Back-end: Node.js, Express.js, .NET, Python</li>
+                <li>AI/ML: Facebook LLaMA, RAG (Retrieval-Augmented Generation), AI-powered chat systems</li>
                 <li>Fullstack: Experience in developing complex applications</li>
                 <li>Cloud: Azure, AWS</li>
                 <li>Containerization: Docker</li>
