@@ -12,7 +12,7 @@ const Index = () => {
           <div className="flex flex-col md:flex-row gap-3 text-gray-600">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
-              <span>waldemar.wanat@gmail.com</span>
+              <span>wwanat01@gmail.com</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
@@ -130,7 +130,7 @@ const Index = () => {
               <h2 className="text-2xl font-semibold text-primary mb-4">LANGUAGES</h2>
               <ul className="list-disc pl-5 space-y-2 text-gray-700">
                 <li>Polish (native)</li>
-                <li>English (communicative B2)</li>
+                <li>English (B2)</li>
               </ul>
             </section>
           </div>
