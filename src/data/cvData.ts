@@ -1,0 +1,359 @@
+export interface ExperienceData {
+  title: string;
+  company: string;
+  date: string;
+  responsibilities: string[];
+  technologies: string[];
+}
+
+export interface CVData {
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  location: string;
+  experienceSummary: {
+    coreTechnologies: Array<{ name: string; years: string; color: string }>;
+    developmentAreas: Array<{ name: string; years: string; color: string }>;
+    totalExperience: string;
+    totalExperienceLabel: string;
+  };
+  profile: string;
+  experiences: ExperienceData[];
+  technicalSkills: string[];
+  education: Array<{
+    degree: string;
+    period?: string;
+    institution?: string;
+  }>;
+  languages: Array<{ language: string; level: string }>;
+}
+
+export const alanUrbanCV: CVData = {
+  name: "Alan Urban",
+  title: "Fullstack Developer",
+  email: "alan.urban23@gmail.com",
+  phone: "+48 784 202 512",
+  location: "Rzeszow, Poland",
+  experienceSummary: {
+    coreTechnologies: [
+      { name: "React", years: "7y 3m", color: "blue" },
+      { name: "Angular", years: "6y", color: "blue" },
+      { name: "Node.js", years: "5y", color: "green" },
+      { name: "React Native", years: "5y", color: "purple" },
+    ],
+    developmentAreas: [
+      { name: "Fullstack", years: "7y 6m", color: "emerald" },
+      { name: "Frontend", years: "6y 2m", color: "emerald" },
+      { name: "Python", years: "3y", color: "yellow" },
+      { name: ".NET", years: "1y", color: "indigo" },
+    ],
+    totalExperience: "10+ Years",
+    totalExperienceLabel: "Total Experience",
+  },
+  profile:
+    "Experienced React, React Native and Node developer with a wide range of skills in front-end, back-end, and full-stack development. Specializing in building responsive web applications, performance optimization, and collaboration in international teams. Proficient in AI-powered chat systems using Facebook LLaMA and RAG technology for behavioral analysis and personalized recommendations. Expert in containerization with Docker and cloud deployment on Azure and AWS platforms. Founder of an educational platform, mentor with a passion for sharing knowledge in web application development. My career path includes progression from intern to senior full-stack developer over 10 years, with experience in diverse projects and work environments.",
+  experiences: [
+    {
+      title: "Fullstack Developer",
+      company: "YUBU (Education Technology)",
+      date: "June 2025 - August 2025",
+      responsibilities: [
+        "Built educational MVP from scratch for children's development startup using React, Node.js, and Python",
+        "Created nearly 30 interactive educational games using plain JavaScript and React, enhancing learning engagement by 45%",
+        "Developed AI-powered chat system using Facebook's LLaMA and RAG technology in Python to analyze player behavior and learning progress",
+        "Implemented real-time communication pattern analysis using Python machine learning algorithms, improving personalized learning recommendations by 35%",
+        "Built backend data processing pipelines in Python for handling educational content and user analytics",
+        "Designed and deployed scalable architecture combining educational technology with AI-driven insights using Docker and AWS",
+      ],
+      technologies: [
+        "React",
+        "Node.js",
+        "Python",
+        "JavaScript",
+        "TypeScript",
+        "Facebook LLaMA",
+        "RAG",
+        "AI/ML",
+        "Real-time Analytics",
+        "MVP Development",
+        "Docker",
+        "AWS",
+      ],
+    },
+    {
+      title: "Fullstack Developer",
+      company: "Live Engage (Communication Technology)",
+      date: "June 2022 - Now",
+      responsibilities: [
+        "Developed React-based communication widget with AI-powered user behavior analysis, increasing user engagement by 30%",
+        "Created Node.js administrative panel with AI integration for management processes optimization by 50%",
+        "Built RESTful API using Express.js for customer dashboard, improving data visibility by 40%",
+        "Implemented AI-driven analytics for widget performance monitoring and user interaction patterns",
+        "Implemented responsive design principles and ensured cross-browser compatibility",
+        "Utilized Git for version control and participated in Agile development processes",
+        "Deployed applications using Docker containers and Azure cloud infrastructure",
+      ],
+      technologies: [
+        "React",
+        "Node.js",
+        "Express.js",
+        "JavaScript",
+        "TypeScript",
+        "AI Analytics",
+        "Docker",
+        "Azure",
+        "RESTful API",
+        "Git",
+        "Agile",
+        "CSS3",
+        "HTML5",
+      ],
+    },
+    {
+      title: "Fullstack Developer",
+      company: "Sii (Healthcare Technology)",
+      date: "June 2022 - April 2024",
+      responsibilities: [
+        "Developed patient management application and treatment scheduling system for neurosurgery specialists using React, TypeScript, and Next.js, enhancing operational efficiency and patient care by 40%",
+        "Built backend data processing services in Python for medical data analytics and patient record management",
+        "Created progressive web applications and mobile applications, improving accessibility and user engagement by 30%",
+        "Worked on GraphQL integration, optimizing data fetching and reducing load times by 25%",
+        "Implemented Python-based automated scheduling algorithms for optimizing treatment schedules and resource allocation",
+        "Implemented containerization using Docker and deployed applications on AWS infrastructure",
+      ],
+      technologies: [
+        "React",
+        "TypeScript",
+        "Next.js",
+        "Python",
+        "GraphQL",
+        "PWA",
+        "Mobile Development",
+        "Docker",
+        "AWS",
+        "Healthcare Systems",
+        "Patient Management",
+      ],
+    },
+  ],
+  technicalSkills: [
+    "Front-end: React, JavaScript (ES6+), TypeScript, HTML5, CSS3/SCSS/SASS, Styled Components",
+    "Mobile: React Native",
+    "Back-end: Node.js, Express.js, .NET, Python",
+    "AI/ML: Facebook LLaMA, RAG (Retrieval-Augmented Generation), AI-powered chat systems",
+    "Fullstack: Experience in developing complex applications",
+    "Cloud: Azure, AWS",
+    "Containerization: Docker",
+    "Databases: MongoDB, PostgreSQL",
+    "API: REST, GraphQL",
+    "State Management: Redux",
+    "Methodologies: Agile, Scrum",
+    "Tools: Git, CI/CD (Jenkins, GitLab CI), JIRA",
+    "E-commerce: Magento",
+    "CMS: Wordpress",
+    "Advertising: Creation of rich media ads",
+  ],
+  education: [
+    {
+      degree: "IT Technology, Master's studies",
+      period: "2016-02 - 2017-06",
+      institution: "University of Rzeszow, Rzeszow",
+    },
+    {
+      degree: "Computer Science, Engineering studies",
+      period: "2012-10 - 2016-02",
+      institution: "University of Rzeszow, Rzeszow",
+    },
+  ],
+  languages: [
+    { language: "Polish", level: "native" },
+    { language: "English", level: "fluent" },
+  ],
+};
+
+export const waldemarWanatCV: CVData = {
+  name: "Waldemar Wanat",
+  title: "iOS Developer",
+  email: "wwanat01@gmail.com",
+  phone: "+48 889 220 166",
+  location: "Rzeszów, Poland",
+  experienceSummary: {
+    coreTechnologies: [
+      { name: "Swift", years: "7y", color: "orange" },
+      { name: "SwiftUI", years: "4y", color: "blue" },
+      { name: "UIKit", years: "7y", color: "indigo" },
+      { name: "Xcode", years: "7y", color: "blue" },
+    ],
+    developmentAreas: [
+      { name: "E-commerce", years: "2y", color: "emerald" },
+      { name: "Food Delivery", years: "2y", color: "green" },
+      { name: "Social Media", years: "2y", color: "blue" },
+      { name: "Communication", years: "1y", color: "purple" },
+    ],
+    totalExperience: "7 Years",
+    totalExperienceLabel: "iOS Development Experience",
+  },
+  profile:
+    "iOS Developer with 7 years of experience in mobile application development. I specialize in Swift, SwiftUI, Combine, async/await and work in Xcode environment. I have worked on projects across various business domains including e-commerce, food delivery, social media, productivity, communication, lifestyle, health and fitness, focusing on performance, stability and intuitive UX/UI. I emphasize clean code, thorough problem analysis and effective teamwork, which translates into high-quality implementations and error reduction. I advocate for clean, organized code and I'm characterized by great care and precision.",
+  experiences: [
+    {
+      title: "iOS Developer",
+      company: "Zorro Delivery Sp. z o.o. (E-commerce), Warsaw",
+      date: "April 2023 - Present",
+      responsibilities: [
+        "Development and maintenance of LisekApp and Lisek Riders applications using UIKit, SwiftUI, Combine, async/await, CoreData",
+        "Bug fixing and legacy code refactoring to improve performance, clarity and consistency",
+        "Implementation of new features using native frameworks and third-party libraries",
+        "Code review for every new feature and bug fix",
+        "Publishing applications to App Store and test versions",
+        "Technical debt analysis",
+      ],
+      technologies: [
+        "SwiftUI",
+        "UIKit",
+        "Combine",
+        "async/await",
+        "Alamofire",
+        "PayU_SDK_Lite",
+        "Swinject",
+        "Storyteller",
+        "Firebase Push Notifications",
+        "Firebase Performance",
+        "Firebase Crashlytics",
+        "AppsFlyer",
+        "GoogleMaps",
+        "MapKit",
+        "Core Location",
+        "Zendesk Messaging",
+        "AVFoundation",
+        "Notification Center",
+        "SmartLook",
+        "CoreData",
+        "SPM",
+        "CocoaPods",
+      ],
+    },
+    {
+      title: "iOS Developer",
+      company: "Neonin Sp. z o.o., Warsaw",
+      date: "February 2022 - February 2023",
+      responsibilities: [
+        "Updating, refactoring and bug fixing in legacy WP mail application built with UIKit technology",
+        "Creating from scratch new WP Mail application for email management using SwiftUI, Combine, Composable Architecture, async/await",
+        "Planning and implementing solutions compliant with project assumptions and client requirements",
+        "Regular participation in online meetings with the client",
+        "Conducting code reviews from other team members before adding changes to the project",
+        "Analysis for planning changes for new iOS system versions",
+        "Writing Unit tests",
+        "Creating technical documentation",
+      ],
+      technologies: [
+        "SwiftUI",
+        "UIKit",
+        "Combine",
+        "Composable Architecture",
+        "async/await",
+        "CoreData",
+        "UserDefaults",
+        "SwiftGen",
+        "SwiftLint",
+        "KeychainSwift",
+        "CocoaPods",
+        "SPM",
+      ],
+    },
+    {
+      title: "iOS Developer",
+      company: "Concise Software, Rzeszów",
+      date: "October 2019 - September 2021",
+      responsibilities: [
+        "Development and maintenance of Let's Day Out app (currently Victoria) for creating social networks with social media and Tinder-like features",
+        "Implementation of post creation, map events, photo adding and stories functionality",
+        "Weekly online client meetings to communicate work status updates",
+        "Conducting code reviews from other team members before adding changes to the project",
+        "Development and maintenance of T-Cup app (currently WellCup) using UIKit, SwiftUI",
+        "Development and maintenance of Weenect – GPS app using UIKit, SnapKit",
+      ],
+      technologies: [
+        "RxSwift",
+        "RxCocoa",
+        "UIKit",
+        "SwiftUI",
+        "Alamofire",
+        "Firebase",
+        "Crashlytics",
+        "Kingfisher",
+        "Mapbox SDK",
+        "SwiftGen",
+        "SwiftlyJSON",
+        "Fastlane",
+        "CocoaPods",
+        "AWS Auth SDK",
+        "SwiftCharts",
+        "Core Location",
+        "Core Bluetooth",
+        "Push Notifications",
+      ],
+    },
+    {
+      title: "iOS Developer",
+      company: "Salesbook, Rzeszów",
+      date: "August 2018 - September 2019",
+      responsibilities: [
+        "Development and maintenance of Mercedes-Benz presentation app for vehicle model showcase with slideshow and video presentations",
+        "Development and maintenance of Mercedes-Benz vehicle configuration and delivery process application",
+        "Development and maintenance of Dailyvery food ordering app with delivery tracking capabilities",
+        "Development and maintenance of Kontigo drugstore chain application",
+        "Development and maintenance of PicTime photo app with frames, stickers, editing and print ordering options",
+        "Development and maintenance of NaviSail navigation app for Polish waters and rivers with weather forecasts, useful objects info and custom route algorithms",
+        "Development of Polaris configuration app for pre-purchase customization and customer presentations",
+        "Creating views for Santander application",
+      ],
+      technologies: [
+        "UIKit",
+        "RxSwift",
+        "RxCocoa",
+        "AVFoundation",
+        "Core Data",
+        "UserDefaults",
+        "Keychain",
+        "Apple Pay",
+        "PayU SDK",
+        "Alamofire",
+        "Firebase Analytics",
+        "Firebase Messaging",
+        "Realm Swift",
+        "Cocoa Pods",
+        "SDWebImage",
+        "SnapKit",
+        "SwiftyJSON",
+        "Core Location",
+        "Firebase DynamicsLinks",
+        "Kingfisher",
+      ],
+    },
+  ],
+  technicalSkills: [
+    "Languages: Swift",
+    "Frameworks: UIKit, SwiftUI, Combine, RxSwift, RxCocoa, Composable Architecture (TCA), Alamofire, URLSession, PayU_SDK_Lite, Swinject, Storyteller SDK, Kingfisher, Zendesk Messaging SDK, Firebase, GoogleMaps, MapKit, Core Location, AVFoundation, Notification Center",
+    "Dependency managers: CocoaPods, Swift Package Manager",
+    "Concurrency: async/await",
+    "Databases: CoreData, Realm",
+    "Design patterns: MVC, MVP, MVVM-C",
+    "CI/CD: Bitrise, App Store Connect, Xcode Cloud, Test Flight",
+    "API: REST",
+    "Methodologies: Agile, Scrum, Kanban",
+    "Tools: Fork, SourceTree, GitHub, Bitbucket, Firebase (Analytics, Crashlytics, Performance, Push Notifications), Jira, Figma",
+  ],
+  education: [
+    {
+      degree: "Computer Science",
+      institution: "Higher Education",
+    },
+  ],
+  languages: [
+    { language: "Polish", level: "native" },
+    { language: "English", level: "B2" },
+  ],
+};
