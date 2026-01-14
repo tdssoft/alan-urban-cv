@@ -1,13 +1,39 @@
 import { Link } from "react-router-dom";
-import { User, Code } from "lucide-react";
+import { User, Code, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-6">
       <div className="max-w-4xl w-full">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">CV Portfolio</h1>
-          <p className="text-xl text-gray-600">Select a CV to view</p>
+          <p className="text-xl text-gray-600 mb-6">Select a CV to view</p>
+
+          {/* Login/Register Section */}
+          <div className="mb-8 p-6 bg-white rounded-xl shadow-md">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Lock className="w-5 h-5 text-blue-600" />
+              <h3 className="text-lg font-semibold text-gray-900">
+                Zaloguj się, aby zobaczyć swoje CV
+              </h3>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to="/login">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Logowanie
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                  Rejestracja
+                </Button>
+              </Link>
+            </div>
+            <p className="text-sm text-gray-500 mt-4">
+              Konta testowe: alan.urban23@gmail.com, wwanat01@gmail.com
+            </p>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
