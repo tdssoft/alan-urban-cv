@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Pencil, Plus, Trash2, RotateCcw, Eye, EyeOff, ChevronUp, ChevronDown } from "lucide-react";
+import { Mail, Phone, MapPin, Pencil, Plus, Trash2, RotateCcw, Eye, EyeOff, ChevronUp, ChevronDown, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCVEdit } from "@/contexts/CVEditContext";
 import { ExperienceData } from "@/data/cvData";
@@ -115,11 +115,15 @@ export const CVTemplate = () => {
     setResetDialogOpen(false);
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-white p-6 md:p-12">
       <div className="max-w-7xl mx-auto">
-        {/* Edit Mode Toggle */}
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        {/* Edit Mode Toggle and Print Button */}
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 print:hidden">
           {hasUnsavedChanges && (
             <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-200 shadow-sm">
               Zmiany zapisane lokalnie
@@ -136,6 +140,15 @@ export const CVTemplate = () => {
               Resetuj
             </Button>
           )}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handlePrint}
+            className="bg-white shadow-lg hover:bg-gray-50"
+          >
+            <Printer className="h-4 w-4 mr-2" />
+            Drukuj
+          </Button>
           <Button
             variant={isEditMode ? "default" : "outline"}
             size="sm"
