@@ -15,12 +15,6 @@ export default function SetPassword() {
   const { setPassword: setUserPassword, user } = useAuth();
   const navigate = useNavigate();
 
-  // If not authenticated or not first login, redirect
-  if (!user || !user.isFirstLogin) {
-    navigate('/login');
-    return null;
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -58,7 +52,7 @@ export default function SetPassword() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Ustaw hasło</CardTitle>
           <CardDescription className="text-center">
-            Witaj, <strong>{user.email}</strong>!
+            Witaj, <strong>{user?.email}</strong>!
             <br />
             To Twoje pierwsze logowanie. Ustaw hasło, aby zabezpieczyć swoje konto.
           </CardDescription>
