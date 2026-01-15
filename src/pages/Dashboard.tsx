@@ -1,5 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { CVTemplate } from '@/components/CVTemplate';
+import { CVEditProvider } from '@/contexts/CVEditContext';
 import { alanUrbanCV, waldemarWanatCV } from '@/data/cvData';
 import { Button } from '@/components/ui/button';
 import { LogOut, User } from 'lucide-react';
@@ -59,7 +60,9 @@ export default function Dashboard() {
 
       {/* CV Content */}
       <div className="py-8">
-        <CVTemplate data={cvData} />
+        <CVEditProvider initialData={cvData}>
+          <CVTemplate />
+        </CVEditProvider>
       </div>
     </div>
   );
