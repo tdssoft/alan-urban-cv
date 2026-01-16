@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Mail, Phone, MapPin, Pencil, Plus, Trash2, RotateCcw, Eye, EyeOff, ChevronUp, ChevronDown, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCVEdit } from "@/contexts/CVEditContext";
@@ -22,6 +22,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { TemplateSelector } from "@/components/TemplateSelector";
+import { getTemplateById, getDefaultTemplate } from "@/types/cvTemplates";
 
 const getColorClass = (color: string, type: 'bg' | 'text' = 'bg') => {
   const colorMap: Record<string, { bg: string; text: string }> = {
@@ -46,8 +48,14 @@ export const CVTemplate = () => {
     reorderExperiences,
     updateExperience,
     addExperience,
-    resetToOriginal
+    resetToOriginal,
+    selectedTemplateId
   } = useCVEdit();
+
+  // Get the selected template
+  const template = useMemo(() => {
+    return getTemplateById(selectedTemplateId) || getDefaultTemplate();
+  }, [selectedTemplateId]);
 
   // Dialog states
   const [personalInfoOpen, setPersonalInfoOpen] = useState(false);
@@ -120,7 +128,7 @@ export const CVTemplate = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-12">
+    <div className={`${template.styles.container} p-6 md:p-12`}>
       <div className="max-w-7xl mx-auto">
         {/* Edit Mode Toggle and Print Button */}
         <div className="fixed top-4 right-4 z-50 flex items-center gap-2 print:hidden">
@@ -129,6 +137,7 @@ export const CVTemplate = () => {
               Zmiany zapisane lokalnie
             </span>
           )}
+          <TemplateSelector />
           {isEditMode && hasUnsavedChanges && (
             <Button
               variant="outline"
@@ -170,29 +179,29 @@ export const CVTemplate = () => {
         </div>
 
         {/* Header */}
-        <header className={`space-y-4 mb-8 relative group ${isEditMode ? 'cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded-lg transition-colors' : ''}`}>
+        <header className={`${template.styles.header.container} space-y-4 mb-8 relative group ${isEditMode ? 'cursor-pointer' : ''}`}>
           {isEditMode && (
             <Button
               variant="ghost"
               size="icon"
-              className="absolute top-0 right-0 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50"
+              className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50"
               onClick={() => setPersonalInfoOpen(true)}
             >
               <Pencil className="h-4 w-4 text-blue-600" />
             </Button>
           )}
-          <h1 className="text-4xl md:text-5xl font-bold text-primary">{cvData.name}</h1>
-          <h2 className="text-xl text-gray-700">{cvData.title}</h2>
-          <div className="flex flex-col md:flex-row gap-3 text-gray-600">
-            <div className="flex items-center gap-2">
+          <h1 className={template.styles.header.name}>{cvData.name}</h1>
+          <h2 className={template.styles.header.title}>{cvData.title}</h2>
+          <div className="flex flex-col md:flex-row gap-3">
+            <div className={`flex items-center gap-2 ${template.styles.header.contactInfo}`}>
               <Mail className="w-4 h-4" />
               <span>{cvData.email}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className={`flex items-center gap-2 ${template.styles.header.contactInfo}`}>
               <Phone className="w-4 h-4" />
               <span>{cvData.phone}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className={`flex items-center gap-2 ${template.styles.header.contactInfo}`}>
               <MapPin className="w-4 h-4" />
               <span>{cvData.location}</span>
             </div>
@@ -200,22 +209,22 @@ export const CVTemplate = () => {
         </header>
 
         {/* Main content grid */}
-        <div className="grid md:grid-cols-[2fr,1fr] gap-8">
+        <div className={template.styles.mainContent.container}>
           {/* Left column - Main content */}
-          <div className="space-y-8">
+          <div className="space-y-8 md:col-span-2">
             {/* Experience Summary */}
-            <section className={`relative group ${isEditMode ? 'cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded-lg transition-colors' : ''}`}>
+            <section className={`${template.styles.section.container} relative group ${isEditMode ? 'cursor-pointer' : ''}`}>
               {isEditMode && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-0 right-0 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
+                  className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
                   onClick={() => setExperienceSummaryOpen(true)}
                 >
                   <Pencil className="h-4 w-4 text-blue-600" />
                 </Button>
               )}
-              <h2 className="text-2xl font-semibold text-primary mb-6">EXPERIENCE SUMMARY</h2>
+              <h2 className={`${template.styles.mainContent.sectionTitle} mb-6`}>EXPERIENCE SUMMARY</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-100">
                   <h3 className="text-lg font-semibold text-blue-800 mb-3">Core Technologies</h3>
@@ -257,25 +266,25 @@ export const CVTemplate = () => {
             </section>
 
             {/* Profile */}
-            <section className={`relative group ${isEditMode ? 'cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded-lg transition-colors' : ''}`}>
+            <section className={`${template.styles.section.container} relative group ${isEditMode ? 'cursor-pointer' : ''}`}>
               {isEditMode && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-0 right-0 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
+                  className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
                   onClick={() => setProfileOpen(true)}
                 >
                   <Pencil className="h-4 w-4 text-blue-600" />
                 </Button>
               )}
-              <h2 className="text-2xl font-semibold text-primary mb-4">PROFILE</h2>
-              <p className="text-gray-700 leading-relaxed">{cvData.profile}</p>
+              <h2 className={`${template.styles.mainContent.sectionTitle} mb-4`}>PROFILE</h2>
+              <p className={`${template.styles.mainContent.sectionContent} leading-relaxed`}>{cvData.profile}</p>
             </section>
 
             {/* Professional Experience */}
-            <section>
+            <section className={template.styles.section.container}>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold text-primary">PROFESSIONAL EXPERIENCE</h2>
+                <h2 className={template.styles.mainContent.sectionTitle}>PROFESSIONAL EXPERIENCE</h2>
                 {isEditMode && (
                   <Button
                     variant="outline"
@@ -337,11 +346,11 @@ export const CVTemplate = () => {
 
                     <div>
                       <div className="flex flex-col md:flex-row md:justify-between mb-2">
-                        <h3 className="text-xl font-semibold">{exp.title}</h3>
-                        <p className="text-gray-600 italic">{exp.date}</p>
+                        <h3 className={template.styles.experience.title}>{exp.title}</h3>
+                        <p className={template.styles.experience.date}>{exp.date}</p>
                       </div>
-                      <p className="text-gray-600 mb-2">{exp.company}</p>
-                      <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                      <p className={template.styles.experience.company}>{exp.company}</p>
+                      <ul className={`list-disc pl-5 space-y-2 ${template.styles.experience.description}`}>
                         {exp.responsibilities.map((responsibility, rIndex) => (
                           <li key={rIndex}>{responsibility}</li>
                         ))}
@@ -371,19 +380,19 @@ export const CVTemplate = () => {
           {/* Right column - Skills, Education, and Languages */}
           <div className="space-y-8">
             {/* Technical Skills */}
-            <section className={`relative group ${isEditMode ? 'cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded-lg transition-colors' : ''}`}>
+            <section className={`${template.styles.section.container} relative group ${isEditMode ? 'cursor-pointer' : ''}`}>
               {isEditMode && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-0 right-0 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
+                  className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
                   onClick={() => setTechnicalSkillsOpen(true)}
                 >
                   <Pencil className="h-4 w-4 text-blue-600" />
                 </Button>
               )}
-              <h2 className="text-2xl font-semibold text-primary mb-4">KEY TECHNICAL SKILLS</h2>
-              <ul className="list-disc pl-5 space-y-2 text-gray-700">
+              <h2 className={`${template.styles.section.title} mb-4`}>KEY TECHNICAL SKILLS</h2>
+              <ul className={`list-disc pl-5 space-y-2 ${template.styles.section.content}`}>
                 {cvData.technicalSkills.map((skill, index) => (
                   <li key={index}>{skill}</li>
                 ))}
@@ -391,43 +400,43 @@ export const CVTemplate = () => {
             </section>
 
             {/* Education */}
-            <section className={`relative group ${isEditMode ? 'cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded-lg transition-colors' : ''}`}>
+            <section className={`${template.styles.section.container} relative group ${isEditMode ? 'cursor-pointer' : ''}`}>
               {isEditMode && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-0 right-0 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
+                  className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
                   onClick={() => setEducationOpen(true)}
                 >
                   <Pencil className="h-4 w-4 text-blue-600" />
                 </Button>
               )}
-              <h2 className="text-2xl font-semibold text-primary mb-4">EDUCATION</h2>
-              <div className="space-y-4">
+              <h2 className={`${template.styles.section.title} mb-4`}>EDUCATION</h2>
+              <div className={`space-y-4 ${template.styles.section.content}`}>
                 {cvData.education.map((edu, index) => (
                   <div key={index}>
                     <h3 className="font-semibold">{edu.degree}</h3>
-                    {edu.period && <p className="text-gray-700">{edu.period}</p>}
-                    {edu.institution && <p className="text-gray-700">{edu.institution}</p>}
+                    {edu.period && <p>{edu.period}</p>}
+                    {edu.institution && <p>{edu.institution}</p>}
                   </div>
                 ))}
               </div>
             </section>
 
             {/* Languages */}
-            <section className={`relative group ${isEditMode ? 'cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded-lg transition-colors' : ''}`}>
+            <section className={`${template.styles.section.container} relative group ${isEditMode ? 'cursor-pointer' : ''}`}>
               {isEditMode && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-0 right-0 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
+                  className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-md hover:bg-blue-50 z-10"
                   onClick={() => setLanguagesOpen(true)}
                 >
                   <Pencil className="h-4 w-4 text-blue-600" />
                 </Button>
               )}
-              <h2 className="text-2xl font-semibold text-primary mb-4">LANGUAGES</h2>
-              <ul className="list-disc pl-5 space-y-2 text-gray-700">
+              <h2 className={`${template.styles.section.title} mb-4`}>LANGUAGES</h2>
+              <ul className={`list-disc pl-5 space-y-2 ${template.styles.section.content}`}>
                 {cvData.languages.map((lang, index) => (
                   <li key={index}>
                     {lang.language} ({lang.level})

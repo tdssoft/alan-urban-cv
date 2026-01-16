@@ -7,6 +7,10 @@ interface CVEditContextType {
   setEditMode: (mode: boolean) => void;
   hasUnsavedChanges: boolean;
 
+  // Template
+  selectedTemplateId: string;
+  setSelectedTemplate: (templateId: string) => void;
+
   // Personal Info
   updatePersonalInfo: (data: Partial<Pick<CVData, 'name' | 'title' | 'email' | 'phone' | 'location'>>) => void;
 
@@ -59,9 +63,11 @@ interface CVEditProviderProps {
 }
 
 const getStorageKey = (name: string) => `cv-edit-${name.toLowerCase().replace(/\s+/g, '-')}`;
+const getTemplateStorageKey = (name: string) => `cv-template-${name.toLowerCase().replace(/\s+/g, '-')}`;
 
 export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initialData, storageKey }) => {
   const effectiveStorageKey = storageKey || getStorageKey(initialData.name);
+  const templateStorageKey = getTemplateStorageKey(initialData.name);
 
   // Load from localStorage on init
   const loadFromStorage = (): CVData => {
@@ -76,10 +82,24 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initia
     return initialData;
   };
 
+  // Load template from localStorage
+  const loadTemplateFromStorage = (): string => {
+    try {
+      const stored = localStorage.getItem(templateStorageKey);
+      if (stored) {
+        return stored;
+      }
+    } catch (e) {
+      console.warn('Failed to load template from localStorage:', e);
+    }
+    return 'professional-blue'; // Default template
+  };
+
   const [cvData, setCvData] = useState<CVData>(loadFromStorage);
   const [originalData] = useState<CVData>(initialData);
   const [isEditMode, setEditMode] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(loadTemplateFromStorage);
 
   // Save to localStorage whenever cvData changes
   useEffect(() => {
@@ -91,6 +111,20 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initia
       console.warn('Failed to save CV data to localStorage:', e);
     }
   }, [cvData, effectiveStorageKey, originalData]);
+
+  // Save template to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(templateStorageKey, selectedTemplateId);
+    } catch (e) {
+      console.warn('Failed to save template to localStorage:', e);
+    }
+  }, [selectedTemplateId, templateStorageKey]);
+
+  // Template management
+  const setSelectedTemplate = useCallback((templateId: string) => {
+    setSelectedTemplateId(templateId);
+  }, []);
 
   // Personal Info
   const updatePersonalInfo = useCallback((data: Partial<Pick<CVData, 'name' | 'title' | 'email' | 'phone' | 'location'>>) => {
@@ -289,6 +323,8 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initia
         isEditMode,
         setEditMode,
         hasUnsavedChanges,
+        selectedTemplateId,
+        setSelectedTemplate,
         updatePersonalInfo,
         updateProfile,
         updateExperienceSummary,
