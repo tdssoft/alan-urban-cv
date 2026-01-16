@@ -92,7 +92,7 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initia
     } catch (e) {
       console.warn('Failed to load template from localStorage:', e);
     }
-    return 'professional-blue'; // Default template
+    return 'sidebar-dark-blue'; // Default template
   };
 
   const [cvData, setCvData] = useState<CVData>(loadFromStorage);
