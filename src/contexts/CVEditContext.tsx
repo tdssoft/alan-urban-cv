@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { CVData, ExperienceData } from '@/data/cvData';
+import { CVVersion } from '@/data/cvVersions';
 
 interface CVEditContextType {
   cvData: CVData;
@@ -10,6 +11,11 @@ interface CVEditContextType {
   // Template
   selectedTemplateId: string;
   setSelectedTemplate: (templateId: string) => void;
+
+  // Versions
+  availableVersions: CVVersion[];
+  selectedVersionId: string;
+  setSelectedVersion: (versionId: string) => void;
 
   // Personal Info
   updatePersonalInfo: (data: Partial<Pick<CVData, 'name' | 'title' | 'email' | 'phone' | 'location'>>) => void;
@@ -60,12 +66,22 @@ interface CVEditProviderProps {
   children: ReactNode;
   initialData: CVData;
   storageKey?: string;
+  versions?: CVVersion[];
+  selectedVersionId?: string;
+  onVersionChange?: (versionId: string) => void;
 }
 
 const getStorageKey = (name: string) => `cv-edit-${name.toLowerCase().replace(/\s+/g, '-')}`;
 const getTemplateStorageKey = (name: string) => `cv-template-${name.toLowerCase().replace(/\s+/g, '-')}`;
 
-export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initialData, storageKey }) => {
+export const CVEditProvider: React.FC<CVEditProviderProps> = ({
+  children,
+  initialData,
+  storageKey,
+  versions = [],
+  selectedVersionId: externalVersionId = 'default',
+  onVersionChange,
+}) => {
   const effectiveStorageKey = storageKey || getStorageKey(initialData.name);
   const templateStorageKey = getTemplateStorageKey(initialData.name);
 
@@ -125,6 +141,13 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initia
   const setSelectedTemplate = useCallback((templateId: string) => {
     setSelectedTemplateId(templateId);
   }, []);
+
+  // Version management
+  const setSelectedVersion = useCallback((versionId: string) => {
+    if (onVersionChange) {
+      onVersionChange(versionId);
+    }
+  }, [onVersionChange]);
 
   // Personal Info
   const updatePersonalInfo = useCallback((data: Partial<Pick<CVData, 'name' | 'title' | 'email' | 'phone' | 'location'>>) => {
@@ -325,6 +348,9 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({ children, initia
         hasUnsavedChanges,
         selectedTemplateId,
         setSelectedTemplate,
+        availableVersions: versions,
+        selectedVersionId: externalVersionId,
+        setSelectedVersion,
         updatePersonalInfo,
         updateProfile,
         updateExperienceSummary,

@@ -23,6 +23,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { TemplateSelector } from "@/components/TemplateSelector";
+import { VersionSelector } from "@/components/VersionSelector";
 import { getTemplateById, getDefaultTemplate } from "@/types/cvTemplates";
 import {
   SidebarLeftLayout,
@@ -166,6 +167,7 @@ export const CVTemplate = () => {
             Zmiany zapisane lokalnie
           </span>
         )}
+        <VersionSelector />
         <TemplateSelector />
         {isEditMode && hasUnsavedChanges && (
           <Button
