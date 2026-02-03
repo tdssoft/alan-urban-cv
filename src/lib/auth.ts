@@ -2,6 +2,7 @@ import { User } from '@/types/user';
 
 const USERS_STORAGE_KEY = 'cv_app_users';
 const CURRENT_USER_KEY = 'cv_app_current_user';
+const REMEMBER_ME_KEY = 'cv_app_remember_me';
 
 // Initialize pre-created accounts
 export const initializeDefaultAccounts = () => {
@@ -105,4 +106,40 @@ export const hashPassword = (password: string): string => {
 
 export const verifyPassword = (password: string, hash: string): boolean => {
   return hashPassword(password) === hash;
+};
+
+// Remember me - stores email for auto-fill
+export const getRememberedEmail = (): string | null => {
+  return localStorage.getItem(REMEMBER_ME_KEY);
+};
+
+export const setRememberedEmail = (email: string | null) => {
+  if (email) {
+    localStorage.setItem(REMEMBER_ME_KEY, email);
+  } else {
+    localStorage.removeItem(REMEMBER_ME_KEY);
+  }
+};
+
+// Sync session user with the actual stored user data to prevent stale snapshots
+export const syncCurrentUserWithStore = (): User | null => {
+  const currentUser = getCurrentUser();
+  if (!currentUser) return null;
+
+  const users = getUsers();
+  // Find the user in the store by ID first, then by email as fallback
+  let storedUser = users.find(u => u.id === currentUser.id);
+  if (!storedUser) {
+    storedUser = users.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
+  }
+
+  if (storedUser) {
+    // Update the session with the latest data from the store
+    setCurrentUser(storedUser);
+    return storedUser;
+  }
+
+  // User no longer exists in store - clear the session
+  setCurrentUser(null);
+  return null;
 };

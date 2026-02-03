@@ -10,6 +10,7 @@ import {
   verifyPassword,
   validatePassword,
   initializeDefaultAccounts,
+  syncCurrentUserWithStore,
 } from '@/lib/auth';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,10 +23,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Initialize default accounts on app load
     initializeDefaultAccounts();
 
-    // Check for existing session
-    const currentUser = getCurrentUser();
-    if (currentUser) {
-      setUser(currentUser);
+    // Sync session with stored user data to prevent stale snapshots
+    // (e.g., isFirstLogin still true after password was already set)
+    const syncedUser = syncCurrentUserWithStore();
+    if (syncedUser) {
+      setUser(syncedUser);
     }
     setIsLoading(false);
   }, []);
