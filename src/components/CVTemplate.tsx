@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Pencil, Plus, Trash2, RotateCcw, Eye, EyeOff, ChevronUp, ChevronDown, Printer } from "lucide-react";
+import { Pencil, Plus, Trash2, RotateCcw, Eye, EyeOff, ChevronUp, ChevronDown, Printer, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCVEdit } from "@/contexts/CVEditContext";
 import { ExperienceData } from "@/data/cvData";
@@ -22,7 +22,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { TemplateSelector } from "@/components/TemplateSelector";
+import { VersionSelector } from "@/components/VersionSelector";
 import { getTemplateById, getDefaultTemplate } from "@/types/cvTemplates";
 import {
   SidebarLeftLayout,
@@ -116,8 +123,37 @@ export const CVTemplate = () => {
     setResetDialogOpen(false);
   };
 
-  const handlePrint = () => {
-    window.print();
+  const handlePrint = (orientation: 'portrait' | 'landscape') => {
+    const styleId = 'print-orientation-override';
+    let styleEl = document.getElementById(styleId) as HTMLStyleElement | null;
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = styleId;
+      document.head.appendChild(styleEl);
+    }
+
+    if (orientation === 'landscape') {
+      styleEl.textContent = `
+        @media print {
+          @page { size: A4 landscape !important; margin: 6mm !important; }
+          html, body { width: 297mm !important; min-height: auto !important; }
+        }
+      `;
+    } else {
+      styleEl.textContent = `
+        @media print {
+          @page { size: A4 portrait !important; margin: 6mm !important; }
+          html, body { width: 210mm !important; min-height: auto !important; }
+        }
+      `;
+    }
+
+    setTimeout(() => {
+      window.print();
+      if (styleEl) {
+        styleEl.textContent = '';
+      }
+    }, 50);
   };
 
   // Edit handlers to pass to layouts
@@ -166,6 +202,7 @@ export const CVTemplate = () => {
             Zmiany zapisane lokalnie
           </span>
         )}
+        <VersionSelector />
         <TemplateSelector />
         {isEditMode && hasUnsavedChanges && (
           <Button
@@ -178,15 +215,33 @@ export const CVTemplate = () => {
             Resetuj
           </Button>
         )}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handlePrint}
-          className="bg-white shadow-lg hover:bg-gray-50"
-        >
-          <Printer className="h-4 w-4 mr-2" />
-          Drukuj
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-white shadow-lg hover:bg-gray-50"
+            >
+              <Printer className="h-4 w-4 mr-2" />
+              Drukuj
+              <ChevronDown className="h-3 w-3 ml-1" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => handlePrint('portrait')}>
+              <svg className="h-4 w-4 mr-2" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="4" y="1" width="8" height="14" rx="1" />
+              </svg>
+              Pionowo (Portrait)
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handlePrint('landscape')}>
+              <svg className="h-4 w-4 mr-2" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="1" y="4" width="14" height="8" rx="1" />
+              </svg>
+              Poziomo (Landscape)
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Button
           variant={isEditMode ? "default" : "outline"}
           size="sm"
