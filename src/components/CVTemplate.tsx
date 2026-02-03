@@ -135,15 +135,15 @@ export const CVTemplate = () => {
     if (orientation === 'landscape') {
       styleEl.textContent = `
         @media print {
-          @page { size: A4 landscape !important; }
-          html, body { width: 297mm !important; min-height: 210mm !important; }
+          @page { size: A4 landscape !important; margin: 6mm !important; }
+          html, body { width: 297mm !important; min-height: auto !important; }
         }
       `;
     } else {
       styleEl.textContent = `
         @media print {
-          @page { size: A4 portrait !important; }
-          html, body { width: 210mm !important; min-height: 297mm !important; }
+          @page { size: A4 portrait !important; margin: 6mm !important; }
+          html, body { width: 210mm !important; min-height: auto !important; }
         }
       `;
     }

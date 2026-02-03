@@ -59,7 +59,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top Navigation Bar */}
-      <nav className="bg-white shadow-sm border-b">
+      <nav className="bg-white shadow-sm border-b print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
@@ -83,7 +83,7 @@ export default function Dashboard() {
       </nav>
 
       {/* Welcome Message */}
-      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-3xl font-bold mb-2">Witaj, {cvData.name}!</h1>
           <p className="text-blue-100">
@@ -93,7 +93,7 @@ export default function Dashboard() {
       </div>
 
       {/* CV Content */}
-      <div className="py-8">
+      <div className="py-8 print:py-0">
         <CVEditProvider
           key={selectedVersionId}
           initialData={cvData}
