@@ -1,20 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { getRememberedEmail, setRememberedEmail } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function Login() {
+  const { login, isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
-  const navigate = useNavigate();
+
+  // Auto-redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user?.isFirstLogin) {
+        navigate('/set-password', { replace: true });
+      } else {
+        navigate('/dashboard', { replace: true });
+      }
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  // Load remembered email on mount
+  useEffect(() => {
+    const remembered = getRememberedEmail();
+    if (remembered) {
+      setEmail(remembered);
+      setRememberMe(true);
+      setShowPassword(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +50,12 @@ export default function Login() {
       const result = await login(email, password || undefined);
 
       if (result.success) {
+        // Save or clear remembered email
+        if (rememberMe) {
+          setRememberedEmail(email);
+        } else {
+          setRememberedEmail(null);
+        }
         navigate('/dashboard');
       } else if (result.requiresPassword) {
         setShowPassword(true);
@@ -77,6 +108,18 @@ export default function Login() {
                 />
               </div>
             )}
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="rememberMe"
+                checked={rememberMe}
+                onCheckedChange={(checked) => setRememberMe(checked === true)}
+                disabled={isLoading}
+              />
+              <Label htmlFor="rememberMe" className="text-sm font-normal cursor-pointer">
+                Zapamiętaj mnie
+              </Label>
+            </div>
 
             {error && (
               <Alert variant="destructive">

@@ -1,8 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Lock, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Home = () => {
+  const { isAuthenticated, user } = useAuth();
+
+  // Auto-redirect to dashboard if already logged in
+  if (isAuthenticated) {
+    if (user?.isFirstLogin) {
+      return <Navigate to="/set-password" replace />;
+    }
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-6">
       <div className="max-w-2xl w-full">
