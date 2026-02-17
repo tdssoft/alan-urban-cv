@@ -1,26 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { CVTemplate } from '@/components/CVTemplate';
 import { CVEditProvider } from '@/contexts/CVEditContext';
-import { alanUrbanCV, waldemarWanatCV } from '@/data/cvData';
-import { getVersionsForCVType } from '@/data/cvVersions';
+import { alanUrbanCV, waldemarWanatCV, CVData } from '@/data/cvData';
+import { getVersionsForCVType, CVVersion } from '@/data/cvVersions';
 import { Button } from '@/components/ui/button';
 import { LogOut, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const getVersionStorageKey = (cvType: string) => `cv-version-selected-${cvType}`;
+const getCustomVersionsStorageKey = (cvType: string) => `cv-custom-versions-${cvType}`;
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const cvType = user?.cvType || 'alan-urban';
-  const versions = getVersionsForCVType(cvType);
+  const baseVersions = getVersionsForCVType(cvType);
+
+  // Load custom versions from localStorage
+  const [customVersions, setCustomVersions] = useState<CVVersion[]>(() => {
+    try {
+      const stored = localStorage.getItem(getCustomVersionsStorageKey(cvType));
+      if (stored) return JSON.parse(stored);
+    } catch (e) {
+      console.warn('Failed to load custom versions:', e);
+    }
+    return [];
+  });
+
+  const allVersions = [...baseVersions, ...customVersions];
 
   const [selectedVersionId, setSelectedVersionId] = useState(() => {
     try {
       const stored = localStorage.getItem(getVersionStorageKey(cvType));
-      if (stored && versions.find(v => v.id === stored)) {
+      if (stored && allVersions.find(v => v.id === stored)) {
         return stored;
       }
     } catch (e) {
@@ -29,6 +43,7 @@ export default function Dashboard() {
     return 'default';
   });
 
+  // Save selected version
   useEffect(() => {
     try {
       localStorage.setItem(getVersionStorageKey(cvType), selectedVersionId);
@@ -37,11 +52,20 @@ export default function Dashboard() {
     }
   }, [selectedVersionId, cvType]);
 
+  // Save custom versions
+  useEffect(() => {
+    try {
+      localStorage.setItem(getCustomVersionsStorageKey(cvType), JSON.stringify(customVersions));
+    } catch (e) {
+      console.warn('Failed to save custom versions:', e);
+    }
+  }, [customVersions, cvType]);
+
   if (!user) {
     return null;
   }
 
-  const currentVersion = versions.find(v => v.id === selectedVersionId) || versions[0];
+  const currentVersion = allVersions.find(v => v.id === selectedVersionId) || allVersions[0];
   const cvData = currentVersion?.data || (cvType === 'alan-urban' ? alanUrbanCV : waldemarWanatCV);
 
   const handleLogout = () => {
@@ -53,7 +77,18 @@ export default function Dashboard() {
     setSelectedVersionId(versionId);
   };
 
-  // Use version-specific storage key for edits
+  const handleCreateVersion = (name: string, data: CVData) => {
+    const newVersion: CVVersion = {
+      id: `custom-${Date.now()}`,
+      name,
+      label: name.substring(0, 6),
+      description: `Wersja niestandardowa: ${name}`,
+      data: JSON.parse(JSON.stringify(data)),
+    };
+    setCustomVersions(prev => [...prev, newVersion]);
+    setSelectedVersionId(newVersion.id);
+  };
+
   const editStorageKey = `cv-edit-${cvType}-${selectedVersionId}`;
 
   return (
@@ -98,9 +133,10 @@ export default function Dashboard() {
           key={selectedVersionId}
           initialData={cvData}
           storageKey={editStorageKey}
-          versions={versions}
+          versions={allVersions}
           selectedVersionId={selectedVersionId}
           onVersionChange={handleVersionChange}
+          onCreateVersion={handleCreateVersion}
         >
           <CVTemplate />
         </CVEditProvider>
