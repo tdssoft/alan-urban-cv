@@ -58,6 +58,9 @@ interface CVEditContextType {
 
   // Reset
   resetToOriginal: () => void;
+
+  // Version creation
+  createNewVersion: (name: string) => void;
 }
 
 const CVEditContext = createContext<CVEditContextType | undefined>(undefined);
@@ -69,6 +72,7 @@ interface CVEditProviderProps {
   versions?: CVVersion[];
   selectedVersionId?: string;
   onVersionChange?: (versionId: string) => void;
+  onCreateVersion?: (name: string, data: CVData) => void;
 }
 
 const getStorageKey = (name: string) => `cv-edit-${name.toLowerCase().replace(/\s+/g, '-')}`;
@@ -81,6 +85,7 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({
   versions = [],
   selectedVersionId: externalVersionId = 'default',
   onVersionChange,
+  onCreateVersion,
 }) => {
   const effectiveStorageKey = storageKey || getStorageKey(initialData.name);
   const templateStorageKey = getTemplateStorageKey(initialData.name);
@@ -339,6 +344,13 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({
     localStorage.removeItem(effectiveStorageKey);
   }, [originalData, effectiveStorageKey]);
 
+  // Create new version
+  const createNewVersion = useCallback((name: string) => {
+    if (onCreateVersion) {
+      onCreateVersion(name, JSON.parse(JSON.stringify(cvData)));
+    }
+  }, [onCreateVersion, cvData]);
+
   return (
     <CVEditContext.Provider
       value={{
@@ -376,7 +388,8 @@ export const CVEditProvider: React.FC<CVEditProviderProps> = ({
         addLanguage,
         updateLanguage,
         removeLanguage,
-        resetToOriginal
+        resetToOriginal,
+        createNewVersion
       }}
     >
       {children}

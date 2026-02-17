@@ -12,6 +12,7 @@ import {
   EducationEditDialog,
   LanguagesEditDialog,
 } from "@/components/edit";
+import { CreateVersionDialog } from "@/components/CreateVersionDialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,7 +50,8 @@ export const CVTemplate = () => {
     updateExperience,
     addExperience,
     resetToOriginal,
-    selectedTemplateId
+    selectedTemplateId,
+    createNewVersion
   } = useCVEdit();
 
   // Get the selected template
@@ -77,6 +79,9 @@ export const CVTemplate = () => {
 
   // Reset confirmation
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
+
+  // Create version dialog
+  const [createVersionOpen, setCreateVersionOpen] = useState(false);
 
   const handleAddExperience = () => {
     setExperienceDialogMode('add');
@@ -245,7 +250,13 @@ export const CVTemplate = () => {
         <Button
           variant={isEditMode ? "default" : "outline"}
           size="sm"
-          onClick={() => setEditMode(!isEditMode)}
+          onClick={() => {
+            if (isEditMode) {
+              setEditMode(false);
+            } else {
+              setCreateVersionOpen(true);
+            }
+          }}
           className={`shadow-lg ${isEditMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-white'}`}
         >
           {isEditMode ? (
@@ -316,6 +327,16 @@ export const CVTemplate = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Create Version Dialog */}
+      <CreateVersionDialog
+        open={createVersionOpen}
+        onOpenChange={setCreateVersionOpen}
+        onCreateVersion={(name) => {
+          createNewVersion(name);
+          setEditMode(true);
+        }}
+      />
     </>
   );
 };
